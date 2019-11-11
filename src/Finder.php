@@ -7,7 +7,7 @@ use DOMDocument;
 class Finder
 {
   /**
-   * @param DOMDocument $doc
+   * @param DOMDocument $node
    */
   static function occurance($node, $value)
   {
