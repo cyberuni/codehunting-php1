@@ -1,0 +1,2 @@
+<phpunit colors="true" cacheResultFile=".php/phpunit.result.cache">
+</phpunit>
