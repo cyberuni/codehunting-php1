@@ -11,14 +11,15 @@ class Finder
    */
   static function occurance($node, $value)
   {
+    // self::printCallRate();
+
     if ($node->nodeType === XML_TEXT_NODE) {
       return $node->nodeValue === $value ? 1 : 0;
     }
 
     if ($node->hasChildNodes()) {
       $occurance = 0;
-      for ($i = 0; $i < $node->childNodes->length; $i++) {
-        $child = $node->childNodes->item($i);
+      foreach ($node->childNodes as $child) {
         $occurance += self::occurance($child, $value);
       }
 
@@ -26,5 +27,22 @@ class Finder
     }
 
     return 0;
+  }
+
+  static $last;
+  static $count = 0;
+
+  static function printCallRate()
+  {
+    if (!isset(self::$last)) self::$last = microtime(true);
+
+    self::$count++;
+
+    if (self::$count % 500 === 0) {
+      $now = microtime(true);
+      $elasped = $now - self::$last;
+      error_log(sprintf('process rate: %.3fs /  100', $elasped / 5));
+      self::$last = $now;
+    }
   }
 }
